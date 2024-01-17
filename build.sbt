@@ -3,7 +3,11 @@ import Versions.*
 
 inThisBuild(
   Seq(
-    version := "0.1-SNAPSHOT",
+    tlBaseVersion := "0.1",
+    tlSonatypeUseLegacyHost := true,
+    tlFatalWarnings := false,
+    tlCiMimaBinaryIssueCheck := false,
+    githubWorkflowJavaVersions := Seq(JavaSpec.temurin("21")),
     organization := "net.hamnaberg.googleapis",
     crossScalaVersions := List("2.13.12", "2.12.18", "3.3.1"),
     scalaVersion := crossScalaVersions.value.head,
