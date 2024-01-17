@@ -1,24 +1,16 @@
-import discovery.DiscoveryPlugin.autoImport.{discoveryGenerate, discoveryPackage}
+import discovery.DiscoveryPlugin.autoImport.{discoveryDocument, discoveryGenerate, discoveryPackage}
 import discovery.{DiscoveryPlugin, ResolveDiscoveryPlugin}
 import discovery.ResolveDiscoveryPlugin.autoImport.{discoveryList, discoveryUri}
 import org.scalafmt.interfaces.Scalafmt
 import org.scalafmt.sbt.ScalafmtPlugin.autoImport.scalafmtConfig
-import sbt.Keys.*
-import sbt.*
+import sbt.Keys._
+import sbt._
+import sbtcrossproject._
+import scalajscrossproject._
+import org.portablescala.sbtplatformdeps.PlatformDepsPlugin.autoImport._
 
 object GeneratedProjects {
-  val circeVersion = "0.14.6"
-  val http4sVersion = "0.23.25"
-
-  def configureApiProject(project: Project): Project =
-    project.settings(
-      libraryDependencies ++= Seq(
-        "io.circe" %% "circe-core" % circeVersion,
-        "org.http4s" %% "http4s-circe" % http4sVersion,
-        "org.http4s" %% "http4s-client" % http4sVersion,
-      )
-    )
-
+  import Versions._
   def printDiscoveryProject = Command.args("printDiscoveryProject", "<name>") { (state, args) =>
     val discList = Project.runTask(discoveryList, state)
     val items = discList.flatMap(_._2.toEither.toOption).map(_.items).getOrElse(Vector.empty)
@@ -35,8 +27,18 @@ object GeneratedProjects {
     state
   }
 
+  def configureApiProject(project: Project): Project =
+    project.settings(
+      libraryDependencies ++= Seq(
+        "io.circe" %%% "circe-core" % circeVersion,
+        "org.http4s" %%% "http4s-circe" % http4sVersion,
+        "org.http4s" %%% "http4s-client" % http4sVersion,
+      )
+    )
+
   def newProject(_name: String, url: URL) =
-    Project(_name, file(_name))
+    CrossProject(_name, file(_name))(JVMPlatform, JSPlatform)
+      .crossType(CrossType.Full)
       .enablePlugins(DiscoveryPlugin)
       .enablePlugins(ResolveDiscoveryPlugin)
       .configure(configureApiProject)
@@ -44,6 +46,10 @@ object GeneratedProjects {
         name := s"googleapis-http4s-${_name}",
         discoveryPackage := s"googleapis.${_name}",
         discoveryUri := url,
+        Compile / discoveryDocument := {
+          DiscoveryPlugin
+            .parseDiscovery(baseDirectory.value.getParentFile / "shared")
+        },
         Compile / discoveryGenerate := {
           val config = scalafmtConfig.value
           val files = (Compile / discoveryGenerate).value
@@ -56,7 +62,8 @@ object GeneratedProjects {
         },
         version := {
           val mainVersion = (ThisBuild / version).value
-          val discovery = DiscoveryPlugin.parseDiscovery(baseDirectory.value)
+          val discovery =
+            DiscoveryPlugin.parseDiscovery(baseDirectory.value.getParentFile / "shared")
           val isSnapshot = mainVersion.endsWith("SNAPSHOT")
           val googleVersion = discovery.version + "-" + discovery.revision
           if (isSnapshot) {
