@@ -18,8 +18,12 @@ inThisBuild(
 val root = tlCrossRootProject
   .settings(name := "googleapis-http4s-discovery", commands += printDiscoveryProject)
   .aggregate(
-    bigquery
+    bigquery,
+    firebase
   )
 
 lazy val bigquery =
   newProject("bigquery", url("https://bigquery.googleapis.com/discovery/v1/apis/bigquery/v2/rest"))
+
+lazy val firebase = newProject("firebase", url("https://firebase.googleapis.com/$discovery/rest?version=v1beta1"))
+
