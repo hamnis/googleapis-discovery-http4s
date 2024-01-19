@@ -1,4 +1,4 @@
-import discovery.DiscoveryPlugin.autoImport.{discoveryDocument, discoveryGenerate, discoveryPackage}
+import discovery.DiscoveryPlugin.autoImport._
 import discovery.{DiscoveryPlugin, ResolveDiscoveryPlugin}
 import discovery.ResolveDiscoveryPlugin.autoImport.{discoveryList, discoveryUri}
 import org.scalafmt.interfaces.Scalafmt
@@ -19,7 +19,7 @@ object GeneratedProjects {
       .foreach(item => println(s"""Add the following code within the backticks to build.sbt:
            |
            |```
-           |lazy val ${item.name} = newProject("${item.name}", url("${item.discoveryRestUrl.renderString}")
+           |lazy val ${item.name} = newProject("${item.name}", url("${item.discoveryRestUrl.renderString})")
            |```
            |
            Make sure you also run `sbt discoveryFetch` after this has been added to build.sbt
@@ -46,10 +46,6 @@ object GeneratedProjects {
         name := s"googleapis-http4s-${_name}",
         discoveryPackage := s"googleapis.${_name}",
         discoveryUri := url,
-        Compile / discoveryDocument := {
-          DiscoveryPlugin
-            .parseDiscovery(baseDirectory.value.getParentFile / "shared")
-        },
         Compile / discoveryGenerate := {
           val config = scalafmtConfig.value
           val files = (Compile / discoveryGenerate).value
@@ -62,15 +58,19 @@ object GeneratedProjects {
         },
         version := {
           val mainVersion = (ThisBuild / version).value
-          val discovery =
-            DiscoveryPlugin.parseDiscovery(baseDirectory.value.getParentFile / "shared")
-          val isSnapshot = mainVersion.endsWith("SNAPSHOT")
-          val googleVersion = discovery.version + "-" + discovery.revision
-          if (isSnapshot) {
-            mainVersion.stripSuffix("-SNAPSHOT") + "-" + googleVersion + "-SNAPSHOT"
-          } else {
-            mainVersion + "-" + googleVersion
-          }
+          val file = (Compile / discoveryFile).value
+          if (file.exists) {
+
+            val discovery =
+              DiscoveryPlugin.parseDiscovery(file)
+            val isSnapshot = mainVersion.endsWith("SNAPSHOT")
+            val googleVersion = discovery.version + "-" + discovery.revision
+            if (isSnapshot) {
+              mainVersion.stripSuffix("-SNAPSHOT") + "-" + googleVersion + "-SNAPSHOT"
+            } else {
+              mainVersion + "-" + googleVersion
+            }
+          } else mainVersion
         },
       )
 }
