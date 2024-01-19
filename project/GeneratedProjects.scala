@@ -8,6 +8,7 @@ import sbt._
 import sbtcrossproject._
 import scalajscrossproject._
 import org.portablescala.sbtplatformdeps.PlatformDepsPlugin.autoImport._
+import xerial.sbt.Sonatype.autoImport._
 
 object GeneratedProjects {
   import Versions._
@@ -29,11 +30,12 @@ object GeneratedProjects {
 
   def configureApiProject(project: Project): Project =
     project.settings(
+      sonatypeProfileName := "net.hamnaberg",
       libraryDependencies ++= Seq(
         "io.circe" %%% "circe-core" % circeVersion,
         "org.http4s" %%% "http4s-circe" % http4sVersion,
         "org.http4s" %%% "http4s-client" % http4sVersion,
-      )
+      ),
     )
 
   def newProject(_name: String, url: URL) =
