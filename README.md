@@ -14,9 +14,9 @@ and if you need a new api, you can add that by submitting a pull request which a
 1. Find the api that you want to add, either from the disovery list above, or by running
    `sbt printDiscoveryProject`
    Make sure that you add the project both as a `lazy val` AND in the root project `aggregates` list.
-
-2. Open a Pull request with the changes above
-3. Wait a bit
-4. I will merge the PR
-5. I will publish the main branch after merge
-6. You can start using the api about 20 minutes after the release process has been completed ( maven central sync )
+2. After the project has been added, run `sbt discoveryFetch`
+3. Open a Pull request with the changes above
+4. Wait a bit
+5. I will merge the PR
+6. I will publish the main branch after merge
+7. You can start using the api about 20 minutes after the release process has been completed ( maven central sync )
