@@ -16,7 +16,11 @@ inThisBuild(
 )
 
 val root = tlCrossRootProject
-  .settings(name := "googleapis-http4s-discovery", commands += printDiscoveryProject)
+  .settings(
+    name := "googleapis-http4s-discovery",
+    commands += printDiscoveryProject,
+    sonatypeProfileName := "net.hamnaberg",
+  )
   .aggregate(
     bigquery
   )
