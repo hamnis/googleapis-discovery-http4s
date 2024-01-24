@@ -9,6 +9,7 @@ import sbtcrossproject._
 import scalajscrossproject._
 import org.portablescala.sbtplatformdeps.PlatformDepsPlugin.autoImport._
 import xerial.sbt.Sonatype.autoImport._
+import org.typelevel.sbt.TypelevelMimaPlugin.autoImport._
 
 object GeneratedProjects {
   import Versions._
@@ -58,6 +59,7 @@ object GeneratedProjects {
           }
           files
         },
+        tlMimaPreviousVersions := Set.empty,
         version := {
           val mainVersion = (ThisBuild / version).value
           val file = (Compile / discoveryFile).value
