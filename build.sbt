@@ -22,8 +22,12 @@ val root = tlCrossRootProject
     sonatypeProfileName := "net.hamnaberg",
   )
   .aggregate(
-    bigquery
+    bigquery,
+    storage,
   )
 
 lazy val bigquery =
   newProject("bigquery", url("https://bigquery.googleapis.com/discovery/v1/apis/bigquery/v2/rest"))
+
+lazy val storage =
+  newProject("storage", url("https://storage.googleapis.com/$discovery/rest?version=v1"))
