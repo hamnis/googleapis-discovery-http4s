@@ -21,7 +21,7 @@ object GeneratedProjects {
       .foreach(item => println(s"""Add the following code within the backticks to build.sbt:
            |
            |```
-           |lazy val ${item.name} = newProject("${item.name}", url("${item.discoveryRestUrl.renderString})")
+           |lazy val ${item.name} = newProject("${item.name}", url("${item.discoveryRestUrl.renderString}"))
            |```
            |
            Make sure you also run `sbt discoveryFetch` after this has been added to build.sbt
