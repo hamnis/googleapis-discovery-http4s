@@ -24,6 +24,7 @@ val root = tlCrossRootProject
   .aggregate(
     bigquery,
     storage,
+    firebase,
   )
 
 lazy val bigquery =
@@ -31,3 +32,6 @@ lazy val bigquery =
 
 lazy val storage =
   newProject("storage", url("https://storage.googleapis.com/$discovery/rest?version=v1"))
+
+lazy val firebase =
+  newProject("firebase", url("https://firebase.googleapis.com/$discovery/rest?version=v1beta1"))
