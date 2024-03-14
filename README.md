@@ -8,13 +8,15 @@ and if you need a new api, you can add that by submitting a pull request which a
 
 ## Currently generated apis
 - bigquery
+- storage
+- firebase
 
 ## How to add a new api
 
 1. Find the api that you want to add, either from the disovery list above, or by running
-   `sbt printDiscoveryProject`
+   `sbt printDiscoveryProject <name>`
    Make sure that you add the project both as a `lazy val` AND in the root project `aggregates` list.
-2. After the project has been added, run `sbt discoveryFetch`
+2. After the project has been added, run `sbt discoveryFetch scalafmtSbt githubWorkflowGenerate`
 3. Open a Pull request with the changes above
 4. Wait a bit
 5. I will merge the PR
