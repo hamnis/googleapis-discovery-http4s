@@ -3,7 +3,7 @@ import Versions.*
 
 inThisBuild(
   Seq(
-    tlBaseVersion := "0.3",
+    tlBaseVersion := "0.4",
     tlSonatypeUseLegacyHost := true,
     tlFatalWarnings := false,
     tlCiMimaBinaryIssueCheck := false,
