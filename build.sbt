@@ -4,6 +4,7 @@ import Versions.*
 inThisBuild(
   Seq(
     tlBaseVersion := "0.4",
+    startYear := Some(2024),
     tlSonatypeUseLegacyHost := true,
     tlFatalWarnings := false,
     tlCiMimaBinaryIssueCheck := false,
