@@ -4,12 +4,13 @@ import Versions.*
 inThisBuild(
   Seq(
     tlBaseVersion := "0.4",
+    startYear := Some(2024),
     tlSonatypeUseLegacyHost := true,
     tlFatalWarnings := false,
     tlCiMimaBinaryIssueCheck := false,
     githubWorkflowJavaVersions := Seq(JavaSpec.temurin("21")),
     organization := "net.hamnaberg.googleapis",
-    crossScalaVersions := List("2.13.12", "2.12.18", "3.3.1"),
+    crossScalaVersions := List("2.13.14", "2.12.19", "3.3.3"),
     scalaVersion := crossScalaVersions.value.head,
     sonatypeProfileName := "net.hamnaberg",
   )
