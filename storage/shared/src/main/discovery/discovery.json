@@ -43,7 +43,7 @@
       "location" : "me-central2"
     }
   ],
-  "etag" : "\"3134303732373039313837313139343938323438\"",
+  "etag" : "\"333930333234373737383136303738343630\"",
   "icons" : {
     "x16" : "https://www.google.com/images/icons/product/cloud_storage-16.png",
     "x32" : "https://www.google.com/images/icons/product/cloud_storage-32.png"
@@ -4136,7 +4136,7 @@
       }
     }
   },
-  "revision" : "20240823",
+  "revision" : "20240831",
   "rootUrl" : "https://storage.googleapis.com/",
   "schemas" : {
     "AnywhereCache" : {
