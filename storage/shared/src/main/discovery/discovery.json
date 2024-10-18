@@ -93,7 +93,7 @@
       "location" : "us-west4"
     }
   ],
-  "etag" : "\"34363038313138333339343031393138363232\"",
+  "etag" : "\"35323539393232323030393139303735373836\"",
   "icons" : {
     "x16" : "https://www.google.com/images/icons/product/cloud_storage-16.png",
     "x32" : "https://www.google.com/images/icons/product/cloud_storage-32.png"
@@ -4256,7 +4256,7 @@
       }
     }
   },
-  "revision" : "20241004",
+  "revision" : "20241012",
   "rootUrl" : "https://storage.googleapis.com/",
   "schemas" : {
     "AdvanceRelocateBucketOperationRequest" : {
@@ -4264,12 +4264,12 @@
       "id" : "AdvanceRelocateBucketOperationRequest",
       "properties" : {
         "expireTime" : {
-          "description" : "Specifies the time when the relocation will revert to the sync stage if the relocation hasn’t succeeded.",
+          "description" : "Specifies the time when the relocation will revert to the sync stage if the relocation hasn't succeeded.",
           "format" : "date-time",
           "type" : "string"
         },
         "ttl" : {
-          "description" : "Specifies the duration after which the relocation will revert to the sync stage if the relocation hasn’t succeeded. Optional, if not supplied, a default value of 12h will be used.",
+          "description" : "Specifies the duration after which the relocation will revert to the sync stage if the relocation hasn't succeeded. Optional, if not supplied, a default value of 12h will be used.",
           "format" : "google-duration",
           "type" : "string"
         }
