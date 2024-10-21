@@ -10,7 +10,7 @@ inThisBuild(
     tlCiMimaBinaryIssueCheck := false,
     githubWorkflowJavaVersions := Seq(JavaSpec.temurin("21")),
     organization := "net.hamnaberg.googleapis",
-    crossScalaVersions := List("2.13.14", "2.12.19", "3.3.3"),
+    crossScalaVersions := List("2.13.15", "2.12.20", "3.3.4"),
     scalaVersion := crossScalaVersions.value.head,
     sonatypeProfileName := "net.hamnaberg",
   )
