@@ -93,7 +93,7 @@
       "location" : "us-west4"
     }
   ],
-  "etag" : "\"35373431303231313130303036373835333431\"",
+  "etag" : "\"3133333837333331393635323137313336353033\"",
   "icons" : {
     "x16" : "https://www.google.com/images/icons/product/cloud_storage-16.png",
     "x32" : "https://www.google.com/images/icons/product/cloud_storage-32.png"
@@ -1129,6 +1129,19 @@
               "required" : true,
               "type" : "string"
             },
+            "projection" : {
+              "description" : "Set of properties to return. Defaults to full.",
+              "enum" : [
+                "full",
+                "noAcl"
+              ],
+              "enumDescriptions" : [
+                "Include all properties.",
+                "Omit owner, acl and defaultObjectAcl properties."
+              ],
+              "location" : "query",
+              "type" : "string"
+            },
             "userProject" : {
               "description" : "The project to be billed for this request. Required for Requester Pays buckets.",
               "location" : "query",
@@ -1136,6 +1149,9 @@
             }
           },
           "path" : "b/{bucket}/restore",
+          "response" : {
+            "$ref" : "Bucket"
+          },
           "scopes" : [
             "https://www.googleapis.com/auth/cloud-platform",
             "https://www.googleapis.com/auth/devstorage.full_control",
@@ -4256,7 +4272,7 @@
       }
     }
   },
-  "revision" : "20241103",
+  "revision" : "20241117",
   "rootUrl" : "https://storage.googleapis.com/",
   "schemas" : {
     "AdvanceRelocateBucketOperationRequest" : {
@@ -5787,6 +5803,11 @@
         },
         "timeDeleted" : {
           "description" : "The time at which the object became noncurrent in RFC 3339 format. Will be returned if and only if this version of the object has been deleted.",
+          "format" : "date-time",
+          "type" : "string"
+        },
+        "timeFinalized" : {
+          "description" : "The time when the object was finalized.",
           "format" : "date-time",
           "type" : "string"
         },
