@@ -2010,7 +2010,7 @@
       }
     }
   },
-  "revision" : "20241111",
+  "revision" : "20241013",
   "rootUrl" : "https://bigquery.googleapis.com/",
   "schemas" : {
     "AggregateClassificationMetrics" : {
@@ -2088,13 +2088,13 @@
           "enumDescriptions" : [
             "Default value.",
             "The argument is a variable with fully specified type, which can be a struct or an array, but not a table.",
-            "The argument is any type, including struct or array, but not a table."
+            "The argument is any type, including struct or array, but not a table. To be added: FIXED_TABLE, ANY_TABLE"
           ],
           "type" : "string"
         },
         "dataType" : {
           "$ref" : "StandardSqlDataType",
-          "description" : "Set if argument_kind == FIXED_TYPE."
+          "description" : "Required unless argument_kind = ANY_TYPE."
         },
         "isAggregate" : {
           "description" : "Optional. Whether the argument is an aggregate function parameter. Must be Unset for routine types other than AGGREGATE_FUNCTION. For AGGREGATE_FUNCTION, if set to false, it is equivalent to adding \"NOT AGGREGATE\" clause in DDL; Otherwise, it is equivalent to omitting \"NOT AGGREGATE\" clause in DDL.",
@@ -2593,11 +2593,11 @@
       "id" : "BigLakeConfiguration",
       "properties" : {
         "connectionId" : {
-          "description" : "Optional. The connection specifying the credentials to be used to read and write to external storage, such as Cloud Storage. The connection_id can have the form `{project}.{location}.{connection_id}` or `projects/{project}/locations/{location}/connections/{connection_id}\".",
+          "description" : "Required. The connection specifying the credentials to be used to read and write to external storage, such as Cloud Storage. The connection_id can have the form `{project}.{location}.{connection_id}` or `projects/{project}/locations/{location}/connections/{connection_id}\".",
           "type" : "string"
         },
         "fileFormat" : {
-          "description" : "Optional. The file format the table data is stored in.",
+          "description" : "Required. The file format the table data is stored in.",
           "enum" : [
             "FILE_FORMAT_UNSPECIFIED",
             "PARQUET"
@@ -2609,11 +2609,11 @@
           "type" : "string"
         },
         "storageUri" : {
-          "description" : "Optional. The fully qualified location prefix of the external folder where table data is stored. The '*' wildcard character is not allowed. The URI should be in the format `gs://bucket/path_to_table/`",
+          "description" : "Required. The fully qualified location prefix of the external folder where table data is stored. The '*' wildcard character is not allowed. The URI should be in the format `gs://bucket/path_to_table/`",
           "type" : "string"
         },
         "tableFormat" : {
-          "description" : "Optional. The table format the metadata only snapshots are stored in.",
+          "description" : "Required. The table format the metadata only snapshots are stored in.",
           "enum" : [
             "TABLE_FORMAT_UNSPECIFIED",
             "ICEBERG"
@@ -5611,7 +5611,7 @@
             "Default value, which will be treated as ENTERPRISE.",
             "Standard edition.",
             "Enterprise edition.",
-            "Enterprise Plus edition."
+            "Enterprise plus edition."
           ],
           "readOnly" : true,
           "type" : "string"
@@ -8525,20 +8525,6 @@
           "readOnly" : true,
           "type" : "string"
         },
-        "managedTableType" : {
-          "description" : "Optional. If set, overrides the default managed table type configured in the dataset.",
-          "enum" : [
-            "MANAGED_TABLE_TYPE_UNSPECIFIED",
-            "NATIVE",
-            "ICEBERG"
-          ],
-          "enumDescriptions" : [
-            "No managed table type specified.",
-            "The managed table is a native BigQuery table.",
-            "The managed table is a BigQuery table for Apache Iceberg."
-          ],
-          "type" : "string"
-        },
         "materializedView" : {
           "$ref" : "MaterializedViewDefinition",
           "description" : "Optional. The materialized view definition."
@@ -9422,7 +9408,7 @@
           "type" : "number"
         },
         "contributionMetric" : {
-          "description" : "The contribution metric. Applies to contribution analysis models. Allowed formats supported are for summable and summable ratio contribution metrics. These include expressions such as `SUM(x)` or `SUM(x)/SUM(y)`, where x and y are column names from the base table.",
+          "description" : "The contribution metric. Applies to contribution analysis models. Allowed formats supported are for summable and summable ratio contribution metrics. These include expressions such as \"SUM(x)\" or \"SUM(x)/SUM(y)\", where x and y are column names from the base table.",
           "type" : "string"
         },
         "dartNormalizeType" : {
