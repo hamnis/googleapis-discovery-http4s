@@ -2010,7 +2010,7 @@
       }
     }
   },
-  "revision" : "20241201",
+  "revision" : "20241208",
   "rootUrl" : "https://bigquery.googleapis.com/",
   "schemas" : {
     "AggregateClassificationMetrics" : {
