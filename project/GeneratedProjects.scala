@@ -18,14 +18,16 @@ object GeneratedProjects {
     val items = discList.flatMap(_._2.toEither.toOption).map(_.items).getOrElse(Vector.empty)
     args.headOption
       .flatMap(nm => items.find(_.name == nm))
-      .foreach(item => println(s"""Add the following code within the backticks to build.sbt:
+      .foreach(item =>
+        println(s"""Add the following code within the backticks to build.sbt:
            |
            |```
            |lazy val ${item.name} = newProject("${item.name}", url("${item.discoveryRestUrl.renderString}"))
            |```
            |
            Make sure you also run `sbt discoveryFetch` after this has been added to build.sbt
-           |""".stripMargin))
+           |""".stripMargin)
+      )
     state
   }
 

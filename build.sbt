@@ -5,12 +5,12 @@ inThisBuild(
   Seq(
     tlBaseVersion := "0.6",
     startYear := Some(2024),
-    tlSonatypeUseLegacyHost := true,
+    sonatypeCredentialHost := Sonatype.sonatypeLegacy,
     tlFatalWarnings := false,
     tlCiMimaBinaryIssueCheck := false,
     githubWorkflowJavaVersions := Seq(JavaSpec.temurin("21")),
     organization := "net.hamnaberg.googleapis",
-    crossScalaVersions := List("2.13.15", "2.12.20", "3.3.4"),
+    crossScalaVersions := List("2.13.16", "2.12.20", "3.3.4"),
     scalaVersion := crossScalaVersions.value.head,
     sonatypeProfileName := "net.hamnaberg",
   )
