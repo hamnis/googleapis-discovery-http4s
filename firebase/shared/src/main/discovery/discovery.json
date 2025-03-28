@@ -1326,7 +1326,7 @@
       }
     }
   },
-  "revision" : "20250319",
+  "revision" : "20250326",
   "rootUrl" : "https://firebase.googleapis.com/",
   "schemas" : {
     "AddFirebaseRequest" : {
@@ -1923,7 +1923,7 @@
       "type" : "object"
     },
     "MessageSet" : {
-      "description" : "LINT.ThenChange( //depot/google3/third_party/protobuf/github/src/google/protobuf/bridge/message_set.proto ) This is proto2's version of MessageSet.",
+      "description" : "This is proto2's version of MessageSet.",
       "id" : "MessageSet",
       "properties" : {
         
