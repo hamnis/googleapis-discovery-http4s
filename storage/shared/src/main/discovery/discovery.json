@@ -208,7 +208,7 @@
       "location" : "us-west4"
     }
   ],
-  "etag" : "\"383439353230383532363330303936323131\"",
+  "etag" : "\"3130373334353536393238313832313130383539\"",
   "icons" : {
     "x16" : "https://www.google.com/images/icons/product/cloud_storage-16.png",
     "x32" : "https://www.google.com/images/icons/product/cloud_storage-32.png"
@@ -4479,7 +4479,7 @@
       }
     }
   },
-  "revision" : "20250322",
+  "revision" : "20250326",
   "rootUrl" : "https://storage.googleapis.com/",
   "schemas" : {
     "AdvanceRelocateBucketOperationRequest" : {
