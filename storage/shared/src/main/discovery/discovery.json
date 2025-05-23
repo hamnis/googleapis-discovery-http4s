@@ -243,7 +243,7 @@
       "location" : "europe-north2"
     }
   ],
-  "etag" : "\"36333934353132393636363531343332373839\"",
+  "etag" : "\"3136393135363039323037313236383230353339\"",
   "icons" : {
     "x16" : "https://www.google.com/images/icons/product/cloud_storage-16.png",
     "x32" : "https://www.google.com/images/icons/product/cloud_storage-32.png"
@@ -4529,7 +4529,7 @@
       }
     }
   },
-  "revision" : "20250513",
+  "revision" : "20250517",
   "rootUrl" : "https://storage.googleapis.com/",
   "schemas" : {
     "AdvanceRelocateBucketOperationRequest" : {
