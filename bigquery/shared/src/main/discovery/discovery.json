@@ -2376,7 +2376,7 @@
       }
     }
   },
-  "revision" : "20250928",
+  "revision" : "20251005",
   "rootUrl" : "https://bigquery.googleapis.com/",
   "schemas" : {
     "AggregateClassificationMetrics" : {
@@ -5185,6 +5185,10 @@
         "baseTable" : {
           "$ref" : "TableReference",
           "description" : "The base table reference."
+        },
+        "indexId" : {
+          "description" : "The index id.",
+          "type" : "string"
         },
         "postIndexPruningParallelInputCount" : {
           "description" : "The number of parallel inputs after index pruning.",
