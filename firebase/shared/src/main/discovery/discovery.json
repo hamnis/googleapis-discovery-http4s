@@ -1326,7 +1326,7 @@
       }
     }
   },
-  "revision" : "20251022",
+  "revision" : "20251029",
   "rootUrl" : "https://firebase.googleapis.com/",
   "schemas" : {
     "AddFirebaseRequest" : {
