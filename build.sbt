@@ -8,46 +8,6 @@ inThisBuild(
     scalaVersion := crossScalaVersions.value.head,
     myBaseVersion := baseVersion,
     sonaDeploymentName := "net.hamnaberg",
-    githubWorkflowJavaVersions := Seq(JavaSpec.temurin("17")),
-    githubWorkflowTargetTags ++= Seq("v*"),
-    githubWorkflowPublishTargetBranches :=
-      Seq(RefPredicate.StartsWith(Ref.Tag("v")), RefPredicate.Equals(Ref.Branch("main"))),
-    githubWorkflowPublish := Seq(
-      WorkflowStep.Run(
-        name = Some("Import signing key"),
-        commands = List(
-          """echo "$PGP_SECRET" | base64 -d -i - > /tmp/signing-key.gpg""",
-          """echo "$PGP_PASSPHRASE" | gpg --pinentry-mode loopback --passphrase-fd 0 --import /tmp/signing-key.gpg""",
-        ),
-        env = Map(
-          "PGP_PASSPHRASE" -> "${{ secrets.PGP_PASSPHRASE }}",
-          "PGP_SECRET" -> "${{ secrets.PGP_SECRET }}",
-        ),
-      ),
-      WorkflowStep.Sbt(
-        commands = List("publishSigned", "pushRelease"),
-        name = Some("Publish project"),
-        env = Map(
-          "SONATYPE_PASSWORD" -> "${{ secrets.SONATYPE_PASSWORD }}",
-          "SONATYPE_USERNAME" -> "${{ secrets.SONATYPE_USERNAME }}",
-          "PGP_PASSPHRASE" -> "${{ secrets.PGP_PASSPHRASE }}",
-        ),
-      ),
-    ),
-    githubWorkflowBuild := Seq(
-      WorkflowStep.Use(
-        UseRef.Public("jrouly", "scalafmt-native-action", "v5"),
-        params = Map("arguments" -> "--test"),
-      ),
-      WorkflowStep.Sbt(
-        commands = List("+test", "sbtPlugin/scripted"),
-        name = Some("Build project"),
-        env = Map(
-          "JAVA_TOOL_OPTIONS" -> "-Xss10M"
-        ),
-      ),
-    ),
-    githubWorkflowPREventTypes := Seq(PREventType.Opened, PREventType.Synchronize),
     homepage := Some(uri("https://github.com/hamnis/google-discovery-scala")),
     licenses := List(License.Apache2),
     developers := List(

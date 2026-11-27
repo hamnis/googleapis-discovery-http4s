@@ -1,8 +1,9 @@
-import discovery.DiscoveryPlugin.autoImport._
+import discovery.DiscoveryPlugin.autoImport.*
 import discovery.{DiscoveryPlugin, ResolveDiscoveryPlugin}
 import discovery.ResolveDiscoveryPlugin.autoImport.{discoveryList, discoveryUri}
-import sbt.Keys._
-import sbt._
+import org.scalafmt.sbt.ScalafmtSbtDependencyDownloader
+import sbt.Keys.*
+import sbt.*
 //import org.typelevel.sbt.TypelevelMimaPlugin.autoImport._
 
 object GeneratedProjects {
@@ -45,16 +46,24 @@ object GeneratedProjects {
       Compile / discoveryFile :=
         file(id) / "shared" / "src" / "main" / "discovery" / "discovery.json",
       discoveryUri := uri,
-      // Compile / discoveryGenerate := {
-      //        val config = scalafmtConfig.value
-      //  val files = (Compile / discoveryGenerate).value
-      //      val fmt = Scalafmt.create(this.getClass.getClassLoader)
-      //    val session = fmt.createSession(config.toPath)
-      //  files.foreach { file =>
-      //  IO.write(file, session.format(file.toPath, IO.read(file)))
-      // }
-      // files
-      // },
+      Compile / discoveryGenerate := Def.uncached {
+        val config = (LocalRootProject / baseDirectory).value.toPath.resolve(".scalafmt.conf")
+        val files = (Compile / discoveryGenerate).value
+        val fmt = org.scalafmt.interfaces.Scalafmt
+          .create(this.getClass.getClassLoader)
+          .withRepositoryPackageDownloader(
+            new ScalafmtSbtDependencyDownloader(
+              taskStreams = streams.value,
+              csrConfiguration = csrConfiguration.value,
+              updateConfiguration = updateConfiguration.value,
+            )
+          )
+        val session = fmt.createSession(config)
+        files.foreach { file =>
+          IO.write(file, session.format(file.toPath, IO.read(file)))
+        }
+        files
+      },
       // tlMimaPreviousVersions := Set.empty,
       version := {
         val mainVersion = (ThisBuild / version).value
@@ -72,13 +81,4 @@ object GeneratedProjects {
         } else mainVersion
       },
     )
-
-  /*def newProject(_name: String, uri: URI) =
-    ProjectMatrix(_name, file(_name), getClass.getClassLoader)
-      .jvmPlatform(scalaVersions = Versions.scalaVersions)
-      .jsPlatform(scalaVersions = Versions.scalaVersions)
-      .enablePlugins(sbtmatrixsources.ProjectMatrixSourcesPlugin)
-      .enablePlugins(DiscoveryPlugin)
-      .enablePlugins(ResolveDiscoveryPlugin)
-      .configure(configureApiProject)*/
 }
