@@ -2,8 +2,6 @@ import Versions.*
 
 val baseVersion = "0.7"
 
-resolvers += "Central Snapshots" at "https://central.sonatype.com/repository/maven-snapshots/"
-
 inThisBuild(
   Seq(
     myBaseVersion := baseVersion,

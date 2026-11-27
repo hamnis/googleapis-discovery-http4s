@@ -1,3 +1,5 @@
+resolvers += "Central Snapshots" at "https://central.sonatype.com/repository/maven-snapshots/"
+
 addSbtPlugin("com.github.sbt" % "sbt-github-actions" % "0.32.1")
 addSbtPlugin("com.github.sbt" % "sbt-pgp" % "2.3.2")
 addSbtPlugin("com.github.sbt" % "sbt-git" % "2.2.0")
