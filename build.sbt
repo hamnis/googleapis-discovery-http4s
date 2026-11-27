@@ -2,6 +2,8 @@ import Versions.*
 
 val baseVersion = "0.7"
 
+resolvers += "Central Snapshots" at "https://central.sonatype.com/repository/maven-snapshots/"
+
 inThisBuild(
   Seq(
     myBaseVersion := baseVersion,
@@ -65,8 +67,7 @@ inThisBuild(
         state // a snapshot is good-to-go
       else // a non-snapshot releases as a bundle
         Command.process("sonaRelease", state, _ => ())
-    },
-    resolvers += "Central Snapshots" at "https://central.sonatype.com/repository/maven-snapshots/"
+    }
   )
 )
 
