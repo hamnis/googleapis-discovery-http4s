@@ -1,3 +1,7 @@
+addSbtPlugin("com.github.sbt" % "sbt-github-actions" % "0.32.1")
+addSbtPlugin("com.github.sbt" % "sbt-pgp" % "2.3.2")
+addSbtPlugin("com.github.sbt" % "sbt-git" % "2.2.0")
+
 addSbtPlugin("net.hamnaberg" % "google-discovery-sbt" % "0.7-SNAPSHOT")
 addSbtPlugin("org.scalameta" % "sbt-scalafmt" % "2.6.2")
 //addSbtPlugin("org.typelevel" % "sbt-typelevel" % "0.7.5")
