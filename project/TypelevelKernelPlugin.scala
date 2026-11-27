@@ -32,7 +32,7 @@ object TypelevelKernelPlugin extends AutoPlugin {
   import autoImport._
 
   override def globalSettings = Seq(
-    Def.derive(tlIsScala3 := scalaVersion.value.startsWith("3.")),
+    Def.derive(tlIsScala3 := scalaVersion.value.startsWith("3."))
   )
 
   override def projectSettings = Seq(

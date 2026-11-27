@@ -18,13 +18,16 @@ object MyVersioningPlugin extends AutoPlugin {
       settingKey[String]("The base version for the series your project is in. e.g., 0.2, 3.5")
     lazy val myUntaggedAreSnapshots =
       settingKey[Boolean](
-        "If true, an untagged commit is given a snapshot version, e.g. 0.4-00218f9-SNAPSHOT. If false, it is given a release version, e.g. 0.4-00218f9. (default: true)")
+        "If true, an untagged commit is given a snapshot version, e.g. 0.4-00218f9-SNAPSHOT. If false, it is given a release version, e.g. 0.4-00218f9. (default: true)"
+      )
 
     lazy val myLatestVersion = settingKey[Option[String]](
-      "The latest tagged version on this branch. Priority is given to the latest stable version, but if you have tagged a binary-breaking prelease version (such as a milestone or release candidate), that will be selected instead. If applicable, this will be the current tagged version.")
+      "The latest tagged version on this branch. Priority is given to the latest stable version, but if you have tagged a binary-breaking prelease version (such as a milestone or release candidate), that will be selected instead. If applicable, this will be the current tagged version."
+    )
 
     lazy val myLatestPreReleaseVersion = settingKey[Option[String]](
-      "The latest tagged version on this branch, including milestones and release candidates. If applicable, this will be the current tagged version.")
+      "The latest tagged version on this branch, including milestones and release candidates. If applicable, this will be the current tagged version."
+    )
   }
 
   import autoImport.*
@@ -103,7 +106,7 @@ object MyVersioningPlugin extends AutoPlugin {
       version
     },
     myLatestVersion := currentRelease.value,
-    myLatestPreReleaseVersion := currentPreRelease.value
+    myLatestPreReleaseVersion := currentPreRelease.value,
   )
 
   private val Description = """^.*-(\d+)-[a-zA-Z0-9]+$""".r

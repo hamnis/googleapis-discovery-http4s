@@ -16,23 +16,19 @@
 import scala.sys.process._
 import scala.util.Try
 
-
 object GitHelper {
 
-  /**
-   * Returns a list of strictly previous releases (i.e. ignores tags on HEAD).
-   * @param fromHead
-   *   if `true`, only tags reachable from HEAD's history. If `false`, all tags in the repo.
-   */
+  /** Returns a list of strictly previous releases (i.e. ignores tags on HEAD).
+    * @param fromHead
+    *   if `true`, only tags reachable from HEAD's history. If `false`, all tags in the repo.
+    */
   def previousReleases(fromHead: Boolean = false, strict: Boolean = true): List[MyVersion] =
     Try {
       val merged = if (fromHead) " --merged HEAD" else ""
       // --no-contains omits tags on HEAD
       val noContains = if (strict) " --no-contains HEAD" else ""
       s"git -c versionsort.suffix=- tag$noContains$merged --sort=-v:refname" // reverse
-        .!!
-        .split("\n")
-        .toList
+        .!!.split("\n").toList
         .map(_.trim)
         .collect { case MyVersion.Tag(version) => version }
     }.getOrElse(List.empty)

@@ -15,12 +15,11 @@
  */
 import scala.util.Try
 
-
 final case class MyVersion(
     major: Int,
     minor: Int,
     patch: Option[Int],
-    prerelease: Option[String]
+    prerelease: Option[String],
 ) extends Ordered[MyVersion] {
 
   override def toString: String =
@@ -67,7 +66,9 @@ object MyVersion {
 
   def unapply(v: String): Option[MyVersion] = v match {
     case version(major, minor, patch, prerelease) =>
-      Try(MyVersion(major.toInt, minor.toInt, Option(patch).map(_.toInt), Option(prerelease))).toOption
+      Try(
+        MyVersion(major.toInt, minor.toInt, Option(patch).map(_.toInt), Option(prerelease))
+      ).toOption
     case _ => None
   }
 
