@@ -4,6 +4,8 @@ val baseVersion = "0.7"
 
 inThisBuild(
   Seq(
+    crossScalaVersions := Versions.scalaVersions,
+    scalaVersion := crossScalaVersions.value.head,
     myBaseVersion := baseVersion,
     sonaDeploymentName := "net.hamnaberg",
     githubWorkflowJavaVersions := Seq(JavaSpec.temurin("17")),
@@ -15,12 +17,12 @@ inThisBuild(
         name = Some("Import signing key"),
         commands = List(
           """echo "$PGP_SECRET" | base64 -d -i - > /tmp/signing-key.gpg""",
-          """echo "$PGP_PASSPHRASE" | gpg --pinentry-mode loopback --passphrase-fd 0 --import /tmp/signing-key.gpg"""
+          """echo "$PGP_PASSPHRASE" | gpg --pinentry-mode loopback --passphrase-fd 0 --import /tmp/signing-key.gpg""",
         ),
         env = Map(
           "PGP_PASSPHRASE" -> "${{ secrets.PGP_PASSPHRASE }}",
-          "PGP_SECRET" -> "${{ secrets.PGP_SECRET }}"
-        )
+          "PGP_SECRET" -> "${{ secrets.PGP_SECRET }}",
+        ),
       ),
       WorkflowStep.Sbt(
         commands = List("publishSigned", "pushRelease"),
@@ -28,21 +30,22 @@ inThisBuild(
         env = Map(
           "SONATYPE_PASSWORD" -> "${{ secrets.SONATYPE_PASSWORD }}",
           "SONATYPE_USERNAME" -> "${{ secrets.SONATYPE_USERNAME }}",
-          "PGP_PASSPHRASE" -> "${{ secrets.PGP_PASSPHRASE }}"
-        )
-      )
+          "PGP_PASSPHRASE" -> "${{ secrets.PGP_PASSPHRASE }}",
+        ),
+      ),
     ),
     githubWorkflowBuild := Seq(
       WorkflowStep.Use(
         UseRef.Public("jrouly", "scalafmt-native-action", "v5"),
-        params = Map("arguments" -> "--test")),
+        params = Map("arguments" -> "--test"),
+      ),
       WorkflowStep.Sbt(
         commands = List("+test", "sbtPlugin/scripted"),
         name = Some("Build project"),
         env = Map(
           "JAVA_TOOL_OPTIONS" -> "-Xss10M"
-        )
-      )
+        ),
+      ),
     ),
     githubWorkflowPREventTypes := Seq(PREventType.Opened, PREventType.Synchronize),
     homepage := Some(uri("https://github.com/hamnis/google-discovery-scala")),
@@ -52,7 +55,7 @@ inThisBuild(
         "hamnis",
         "Erlend Hamnaberg",
         "erlend@hamnaberg.net",
-        uri("https://github.com/hamnis")
+        uri("https://github.com/hamnis"),
       )
     ),
     publishTo := {
@@ -65,14 +68,11 @@ inThisBuild(
         state // a snapshot is good-to-go
       else // a non-snapshot releases as a bundle
         Command.process("sonaRelease", state, _ => ())
-    }
+    },
   )
 )
 
-
 startYear := Some(2024)
-crossScalaVersions := Versions.scalaVersions
-scalaVersion := crossScalaVersions.value.head
 LocalRootProject / publish / skip := true
 
 lazy val bigquery = GeneratedProjects.newProject(
